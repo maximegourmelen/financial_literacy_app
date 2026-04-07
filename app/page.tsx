@@ -1,3 +1,4 @@
+import type { Route } from "next";
 import Link from "next/link";
 
 import { APP_NAME } from "@/lib/config";
@@ -19,7 +20,10 @@ export default function HomePage() {
             <Link className="primary-button" href="/login">
               Sibling login
             </Link>
-            <Link className="secondary-button" href="/admin/login">
+            <Link className="secondary-button" href={"/signup" as Route}>
+              Create sibling account
+            </Link>
+            <Link className="ghost-button" href="/admin/login">
               Parent admin
             </Link>
           </div>

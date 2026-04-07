@@ -1,3 +1,4 @@
+import type { Route } from "next";
 import Link from "next/link";
 
 import { StatusBanner } from "@/components/status-banner";
@@ -39,6 +40,9 @@ export default async function AdminLoginPage({
         </form>
 
         <div className="auth-actions">
+          <Link className="secondary-button" href={"/admin/setup" as Route}>
+            First-time admin setup
+          </Link>
           <Link className="ghost-button" href="/login">
             Back to sibling login
           </Link>

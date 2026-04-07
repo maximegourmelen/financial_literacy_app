@@ -2,15 +2,12 @@ import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
 
 import { createCashTransaction, parseCashDirection, parseLedgerAmount } from "@/lib/accounts";
-import { getSession } from "@/lib/session";
+import { requireSession } from "@/lib/auth";
 import { ensureSavingsInterestUpToDate } from "@/lib/interest";
 import { appendMessage, sanitizeReturnTo } from "@/lib/url";
 
 export async function POST(request: Request) {
-  const session = await getSession();
-  if (!session || session.role !== "child") {
-    return NextResponse.redirect(new URL("/login", request.url));
-  }
+  const session = await requireSession("child");
 
   const formData = await request.formData();
   const returnTo = sanitizeReturnTo(formData.get("returnTo"), "/checking");

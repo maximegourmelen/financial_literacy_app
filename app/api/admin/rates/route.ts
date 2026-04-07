@@ -1,15 +1,12 @@
 import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
 
+import { requireSession } from "@/lib/auth";
 import { createSavingsRate } from "@/lib/interest";
-import { getSession } from "@/lib/session";
 import { appendMessage, sanitizeReturnTo } from "@/lib/url";
 
 export async function POST(request: Request) {
-  const session = await getSession();
-  if (!session || session.role !== "admin") {
-    return NextResponse.redirect(new URL("/admin/login", request.url));
-  }
+  const session = await requireSession("admin");
 
   const formData = await request.formData();
   const returnTo = sanitizeReturnTo(formData.get("returnTo"), "/admin");

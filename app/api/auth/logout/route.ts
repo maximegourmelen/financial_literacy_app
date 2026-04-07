@@ -1,10 +1,10 @@
 import { NextResponse } from "next/server";
 
-import { clearSessionCookie } from "@/lib/session";
+import { signOutCurrentUser } from "@/lib/auth";
 import { appendMessage } from "@/lib/url";
 
 export async function POST(request: Request) {
-  await clearSessionCookie();
+  await signOutCurrentUser();
   return NextResponse.redirect(
     new URL(appendMessage("/", "message", "You have been logged out."), request.url)
   );

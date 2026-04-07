@@ -3,13 +3,11 @@ import { AccountType } from "@/lib/types";
 export const APP_NAME =
   process.env.NEXT_PUBLIC_APP_NAME?.trim() || "Family Savings Club";
 
-export const SESSION_COOKIE_NAME = "family-savings-session";
-
 export const HONG_KONG_TIMEZONE = "Asia/Hong_Kong";
 
-export const SESSION_DURATION_MS = 1000 * 60 * 60 * 24 * 14;
-
 export const QUOTE_CACHE_MINUTES = 20;
+
+export const MAX_CHILD_ACCOUNTS = 2;
 
 export const STARTER_ACCOUNT_ORDER: AccountType[] = [
   "checking",
@@ -50,4 +48,12 @@ export function getRequiredEnv(name: string): string {
   }
 
   return value;
+}
+
+export function getSupabaseUrl() {
+  return getRequiredEnv("SUPABASE_URL");
+}
+
+export function getSupabaseAnonKey() {
+  return getRequiredEnv("NEXT_PUBLIC_SUPABASE_ANON_KEY");
 }

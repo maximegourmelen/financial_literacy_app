@@ -4,7 +4,7 @@ A simple family savings and investing app built with Next.js and Supabase.
 
 ## Features
 
-- Username/password login for siblings and admins
+- Supabase Auth login for siblings and admins
 - HKD checking, savings, and investments cash balances
 - Immutable ledger for all cash movements
 - Daily compounded savings interest
@@ -17,16 +17,17 @@ A simple family savings and investing app built with Next.js and Supabase.
 2. Copy `.env.example` to `.env.local`
 3. Create a Supabase project
 4. Run the SQL in [supabase/schema.sql](/Users/maximeg/Documents/Python/savings_app/supabase/schema.sql)
-5. Create password hashes with `npm run hash-password -- "YourPassword"`
-6. Insert your family users using the template in [supabase/seed.template.sql](/Users/maximeg/Documents/Python/savings_app/supabase/seed.template.sql)
-7. Start the app with `npm run dev`
+5. Start the app with `npm run dev`
+6. Create the parent account from `/admin/setup`
+7. Create sibling accounts from `/signup`
 
 ## Environment variables
 
+- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
 - `SUPABASE_URL`
 - `SUPABASE_SERVICE_ROLE_KEY`
-- `SESSION_SECRET`
 - `CRON_SECRET`
+- `ADMIN_SETUP_CODE`
 - `TWELVE_DATA_API_KEY`
 - `NEXT_PUBLIC_APP_NAME`
 
@@ -36,10 +37,7 @@ A simple family savings and investing app built with Next.js and Supabase.
 - Database: Supabase Free
 - Daily savings interest: Vercel cron hitting `/api/cron/interest`
 
-## Default sample usernames
+## Account setup
 
-- `sibling-one`
-- `sibling-two`
-- `parents-admin`
-
-Choose your own passwords before launch.
+- Parent/admin: use `/admin/setup` with the secret code in `ADMIN_SETUP_CODE`
+- Siblings: use `/signup` to create up to two child accounts

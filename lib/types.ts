@@ -19,16 +19,16 @@ export type AssetType = "stock" | "etf" | "crypto";
 
 export type SessionPayload = {
   userId: string;
+  authUserId: string;
   username: string;
   role: UserRole;
   displayName: string;
-  expiresAt: number;
 };
 
 export type AppUser = {
   id: string;
+  auth_user_id: string;
   username: string;
-  password_hash: string;
   role: UserRole;
   display_name: string;
   created_at: string;

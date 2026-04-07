@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 
-import { authenticateUser } from "@/lib/auth";
-import { setSessionCookie } from "@/lib/session";
+import { signInWithUsername } from "@/lib/auth";
 import { appendMessage } from "@/lib/url";
 
 export async function POST(request: Request) {
@@ -18,7 +17,7 @@ export async function POST(request: Request) {
     );
   }
 
-  const user = await authenticateUser({
+  const user = await signInWithUsername({
     username,
     password,
     expectedRole
@@ -32,13 +31,6 @@ export async function POST(request: Request) {
       )
     );
   }
-
-  await setSessionCookie({
-    userId: user.id,
-    username: user.username,
-    role: user.role,
-    displayName: user.display_name
-  });
 
   return NextResponse.redirect(new URL(user.role === "admin" ? "/admin" : "/dashboard", request.url));
 }
